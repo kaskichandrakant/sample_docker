@@ -1,5 +1,4 @@
-# simpleServer
+# sample_docker
 run commands
 ```
-npm install
-npm start
+docker-compose up --build

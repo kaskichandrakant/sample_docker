@@ -5,7 +5,7 @@ services:
     volumes: 
       - data_base:/var/lib/postgresql/data
   web:
-    build: .
+    build: ./mera_app
     container_name: mera_app
     ports:
       - "8000:8000"
@@ -13,5 +13,36 @@ services:
       - "DATABASE_URL=postgresql://postgres@db:5432/postgres"
     depends_on:
       - db
+    volumes: 
+      - ./mera_app:/app
+  second_web:
+    build: ./mera_app
+    container_name: mera_app_2
+    ports:
+      - "8001:8000"
+    environment:
+      - "DATABASE_URL=postgresql://postgres@db:5432/postgres"
+    depends_on:
+      - db
+    volumes: 
+      - ./mera_app:/app
+  third_web:
+    build: ./mera_app
+    container_name: mera_app_3
+    ports:
+      - "8002:8000"
+    environment:
+      - "DATABASE_URL=postgresql://postgres@db:5432/postgres"
+    depends_on:
+      - db
+    volumes: 
+      - ./mera_app:/app
+  loadbalancer:
+    build: ./loadbalancer
+    container_name: loadbalancer
+    ports:
+      - "9000:9000"
+    volumes: 
+      - ./loadbalancer:/app
 volumes:
   data_base:

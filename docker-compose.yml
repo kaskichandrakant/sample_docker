@@ -11,6 +11,8 @@ services:
       - "8000:8000"
     environment:
       - "DATABASE_URL=postgresql://postgres@db:5432/postgres"
+      - "DNS_NAME=mera_app"
+      - "PROXY_DNS=loadbalancer"
     depends_on:
       - db
     volumes: 
@@ -22,6 +24,8 @@ services:
       - "8001:8000"
     environment:
       - "DATABASE_URL=postgresql://postgres@db:5432/postgres"
+      - "DNS_NAME=mera_app_2"
+      - "PROXY_DNS=loadbalancer"
     depends_on:
       - db
     volumes: 
@@ -33,6 +37,8 @@ services:
       - "8002:8000"
     environment:
       - "DATABASE_URL=postgresql://postgres@db:5432/postgres"
+      - "DNS_NAME=mera_app_3"
+      - "PROXY_DNS=loadbalancer"
     depends_on:
       - db
     volumes: 

@@ -5,31 +5,15 @@ const sync_request = require('sync-request');
 const app=express();
 const PORT=9000;
 app.use(express.static('public'));
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended:true}));
 const proxies = ['mera_app','mera_app_2','mera_app_3']
 let free_server;
-setInterval(()=>{
-    proxies.forEach((proxy)=>{
-        setTimeout(()=>{
-            try {
-            let res = request(`http://${proxy}:8000/health`,(err,res,body)=>{
-                if(res.statusCode == 200){
-                    console.log(`Healthy server ${proxy}`);
-                    free_server = proxy;
-                }
-                if(err){
-                    console.log('--------->>>',err);
-                }
-            });
-            } catch (error) {
-                console.log(`Unhealthy server ${proxy} by error \n ${error}`);
-            }
-            
-            return;
-        },5)
-    })
-},2000)
-
+app.post('/health', (req, res) => {
+    if (!req.body.is_busy){
+        free_server= req.body.name
+    }
+    res.end()  
+})
 
 app.get('*',(req,res)=>{
     console.log(`-------------> running on ${free_server}`);

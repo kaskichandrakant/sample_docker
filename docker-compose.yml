@@ -7,8 +7,6 @@ services:
   web:
     build: ./mera_app
     container_name: mera_app
-    ports:
-      - "8000:8000"
     environment:
       - "DATABASE_URL=postgresql://postgres@db:5432/postgres"
       - "DNS_NAME=mera_app"
@@ -20,8 +18,6 @@ services:
   second_web:
     build: ./mera_app
     container_name: mera_app_2
-    ports:
-      - "8001:8000"
     environment:
       - "DATABASE_URL=postgresql://postgres@db:5432/postgres"
       - "DNS_NAME=mera_app_2"
@@ -33,8 +29,6 @@ services:
   third_web:
     build: ./mera_app
     container_name: mera_app_3
-    ports:
-      - "8002:8000"
     environment:
       - "DATABASE_URL=postgresql://postgres@db:5432/postgres"
       - "DNS_NAME=mera_app_3"

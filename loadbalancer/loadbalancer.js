@@ -1,6 +1,5 @@
 const express = require('express');
 const request = require('request');
-const sync_request = require('sync-request');
 
 const app=express();
 const PORT=9000;

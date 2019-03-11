@@ -6,7 +6,6 @@ const app=express();
 const PORT=9000;
 app.use(express.static('public'));
 app.use(express.urlencoded({extended:true}));
-const proxies = ['mera_app','mera_app_2','mera_app_3']
 let free_server;
 app.post('/health', (req, res) => {
     if (!req.body.is_busy){
@@ -24,7 +23,7 @@ app.get('*',(req,res)=>{
 })
 app.post('*',(req,res)=>{
     console.log(req.body);
-    request.post(`http://${proxies[0]}:8000${req.url}`,{form:req.body},(err,response,body)=>{
+    request.post(`http://${free_server}:8000${req.url}`,{form:req.body},(err,response,body)=>{
         res.end()
     })
 })
